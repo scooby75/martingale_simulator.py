@@ -19,7 +19,7 @@ def calcular_recuperacao_martingale(valor_aposta, odd_back, vezes_recuperar, com
             'Rodada': i + 1,
             'Perda Acumulada': round(perda_acumulada, 2),
             'Valor a Recuperar': round(valor_a_recuperar, 2),
-            'Aposta Necessária (sem comissão)': round(aposta_necessaria, 2),
+            #'Aposta Necessária (sem comissão)': round(aposta_necessaria, 2),
             'Aposta Final (com comissão)': round(aposta_final, 2)
         })
         
