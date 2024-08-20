@@ -46,8 +46,8 @@ if st.button("Calcular"):
     st.subheader("Tabela de Apostas")
     st.write(df)
     
-    st.subheader("Resultados Finais")
-    st.write(f"Lucro Total Obtido (R$): {lucro_total:.2f}")
+    #st.subheader("Resultados Finais")
+    #st.write(f"Lucro Total Obtido (R$): {lucro_total:.2f}")
     if suficiente_para_banca:
         st.success("A banca inicial é suficiente para cobrir as apostas.")
     else:
