@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 
-def calcular_recuperacao_martingale(valor_aposta, odd_back, vezes_recuperar):
+def calcular_recuperacao_martingale(valor_aposta, odd_back, vezes_recuperar, comissao):
     apostas = []
     perda_acumulada = 0
     lucro_desejado = valor_aposta * (odd_back - 1)
@@ -24,7 +24,11 @@ def calcular_recuperacao_martingale(valor_aposta, odd_back, vezes_recuperar):
         # Atualiza a perda acumulada para a próxima rodada
         perda_acumulada += aposta_final
     
-    return apostas, perda_acumulada
+    # Cálculo do lucro após descontar a comissão
+    lucro_bruto = lucro_desejado
+    lucro_liquido = lucro_bruto * (1 - comissao / 100)
+    
+    return apostas, perda_acumulada, lucro_liquido
 
 # Interface Streamlit
 st.title("Calculadora de Recuperação Martingale")
@@ -33,9 +37,10 @@ st.title("Calculadora de Recuperação Martingale")
 valor_aposta = st.number_input("Valor da Aposta (R$):", value=1.00, format="%.2f")
 odd_back = st.number_input("Odd Back:", value=1.50, format="%.2f")
 vezes_recuperar = st.number_input("Quantidade de Vezes para Recuperar:", min_value=1, value=3)
+comissao = st.number_input("Comissão da Exchange (%):", value=10.00, format="%.2f")
 
-# Calcular as apostas e o red acumulado
-apostas, red_acumulado = calcular_recuperacao_martingale(valor_aposta, odd_back, vezes_recuperar)
+# Calcular as apostas, red acumulado e lucro líquido
+apostas, red_acumulado, lucro_liquido = calcular_recuperacao_martingale(valor_aposta, odd_back, vezes_recuperar, comissao)
 
 # Converter para DataFrame para exibir como tabela
 df_apostas = pd.DataFrame(apostas)
@@ -54,3 +59,6 @@ st.write(f"você precisará apostar aproximadamente R$ {valor_final:.2f} na últ
 
 # Exibir o Red Acumulado como negativo
 st.write(f"\nRed Acumulado após {vezes_recuperar} apostas: R$ -{red_acumulado:.2f}")
+
+# Exibir o lucro líquido após descontar a comissão da exchange
+st.write(f"\nLucro Líquido após descontar a comissão da Exchange: R$ {lucro_liquido:.2f}")
