@@ -17,7 +17,7 @@ def calcular_recuperacao_martingale(valor_aposta, odd_back, vezes_recuperar):
         apostas.append({
             'Rodada': i + 1,
             'Perda Acumulada': round(perda_acumulada, 2),
-            'Possível Green': round(valor_a_recuperar, 2),
+            'Valor a Recuperar': round(valor_a_recuperar, 2),
             'Aposta Final': round(aposta_final, 2)
         })
         
@@ -39,6 +39,9 @@ apostas = calcular_recuperacao_martingale(valor_aposta, odd_back, vezes_recupera
 
 # Converter para DataFrame para exibir como tabela
 df_apostas = pd.DataFrame(apostas)
+
+# Excluir a linha 0
+df_apostas = df_apostas.iloc[1:].reset_index(drop=True)
 
 # Exibir a tabela
 st.subheader("Tabela de Apostas")
