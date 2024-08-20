@@ -10,7 +10,7 @@ def calcular_martingale_com_comissao(odd_back, valor_inicial, qtd_apostas, comis
         aposta = valor_aposta
         total_perda += aposta
         
-        # Calcula o lucro bruto previsto
+        # Calcula o lucro bruto previsto para essa aposta
         lucro_bruto_previsto = aposta * (odd_back - 1)
         
         # Calcula o lucro líquido considerando a comissão
@@ -23,7 +23,7 @@ def calcular_martingale_com_comissao(odd_back, valor_inicial, qtd_apostas, comis
             'Lucro Previsto': round(lucro_liquido_previsto, 2)
         })
         
-        # Calcula o valor da próxima aposta para cobrir todas as perdas
+        # Ajusta o valor da próxima aposta para cobrir todas as perdas e o valor inicial
         valor_aposta = (total_perda + valor_inicial) / (odd_back - 1)
 
     return apostas
