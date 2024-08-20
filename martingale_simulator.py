@@ -40,10 +40,10 @@ def calcular_martingale(banca_inicial, valor_aposta, odd_back, qnt_vezes, comiss
 st.title("Calculadora de Recuperação Martingale")
 
 banca_inicial = st.number_input("Banca Inicial (R$):", min_value=0.0, value=1000.0, step=0.1)
-valor_aposta = st.number_input("Valor da Aposta (R$):", min_value=0.0, value=10.0, step=0.1)
-odd_back = st.number_input("Odd Back:", min_value=1.01, value=2.0, step=0.1)
-qnt_vezes = st.number_input("Quantidade de Vezes para Recuperar:", min_value=1, value=5)
-comissao = st.number_input("Comissão da Exchange (%):", min_value=0.0, value=5.0, step=0.1)
+valor_aposta = st.number_input("Valor da Aposta (R$):", min_value=0.0, value=1.0, step=0.1)
+odd_back = st.number_input("Odd Back:", min_value=1.01, value=10.0, step=0.1)
+qnt_vezes = st.number_input("Quantidade de Vezes para Recuperar:", min_value=1, value=10)
+comissao = st.number_input("Comissão da Exchange (%):", min_value=0.0, value=10.0, step=0.1)
 
 if st.button("Calcular"):
     try:
@@ -54,8 +54,8 @@ if st.button("Calcular"):
         st.subheader("Tabela de Apostas")
         st.write(df)
         
-        #st.subheader("Resultados Finais")
-        #st.write(f"Lucro Total Obtido (R$): {lucro_total:.2f}")
+        st.subheader("Resultados Finais")
+        st.write(f"Lucro Total Obtido (R$): {lucro_total:.2f}")
         if suficiente_para_banca:
             st.success("A banca inicial é suficiente para cobrir as apostas.")
         else:
