@@ -27,7 +27,7 @@ def calcular_recuperacao_martingale(valor_aposta, odd_back, vezes_recuperar, com
     return apostas
 
 # Interface Streamlit
-st.title("Calculadora de Recuperação Martingale")
+st.title("Calculadora Martingale")
 
 # Inputs
 valor_aposta = st.number_input("Valor da Aposta (R$):", value=1.00, format="%.2f")
