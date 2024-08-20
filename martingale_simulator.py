@@ -43,20 +43,14 @@ df_apostas = pd.DataFrame(apostas)
 # Excluir a linha 0
 df_apostas = df_apostas.iloc[1:].reset_index(drop=True)
 
-# Adicionar a linha "Red Acumulado" ao final da tabela
-red_row = {
-    'Rodada': 'Red Acumulado',
-    'Perda Acumulada': round(red_acumulado, 2),
-    'Valor a Recuperar': '',
-    'Aposta Final': ''
-}
-df_apostas = df_apostas.append(red_row, ignore_index=True)
-
 # Exibir a tabela
 st.subheader("Tabela de Apostas")
 st.dataframe(df_apostas, use_container_width=True)
 
 # Exibir o valor final necessário na última aposta
-valor_final = df_apostas.iloc[-2]['Aposta Final']  # O valor final necessário está na penúltima linha
+valor_final = df_apostas.iloc[-1]['Aposta Final']
 st.write(f"\nPara recuperar as perdas após {vezes_recuperar} apostas usando a estratégia Martingale,")
 st.write(f"você precisará apostar aproximadamente R$ {valor_final:.2f} na última aposta.")
+
+# Exibir o Red Acumulado
+st.write(f"\nRed Acumulado após {vezes_recuperar} apostas: R$ {red_acumulado:.2f}")
