@@ -1,17 +1,19 @@
 import streamlit as st
 import pandas as pd
 
-# Função para calcular as apostas e o valor final
 def calcular_recuperacao_martingale(valor_aposta, odd_back, vezes_recuperar, comissao):
     apostas = []
     perda_acumulada = 0
-
+    lucro_desejado = valor_aposta * (odd_back - 1)
+    
     for i in range(vezes_recuperar):
         # Calcula o valor necessário para cobrir a perda acumulada e obter lucro
-        valor_a_recuperar = perda_acumulada + valor_aposta
+        valor_a_recuperar = perda_acumulada + lucro_desejado
+        
+        # Calcula a aposta necessária sem comissão
         aposta_necessaria = valor_a_recuperar / (odd_back - 1)
         
-        # Considera a comissão da exchange
+        # Ajusta a aposta final considerando a comissão
         aposta_final = aposta_necessaria / (1 - comissao / 100)
         
         # Adiciona a aposta à lista
@@ -29,7 +31,7 @@ def calcular_recuperacao_martingale(valor_aposta, odd_back, vezes_recuperar, com
     return apostas
 
 # Interface Streamlit
-st.title("Calculadora Martingale")
+st.title("Calculadora de Recuperação Martingale")
 
 # Inputs
 valor_aposta = st.number_input("Valor da Aposta (R$):", value=1.00, format="%.2f")
