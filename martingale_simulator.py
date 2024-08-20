@@ -10,8 +10,8 @@ def calcular_martingale_com_comissao(odd_back, valor_inicial, qtd_apostas, comis
         aposta = valor_aposta
         total_perda += aposta
         
-        # Calcula o lucro bruto previsto para essa aposta
-        lucro_bruto_previsto = aposta * (odd_back - 1)
+        # Calcula o lucro bruto previsto se a aposta ganhar
+        lucro_bruto_previsto = aposta * odd_back - aposta
         
         # Calcula o lucro líquido considerando a comissão
         lucro_liquido_previsto = lucro_bruto_previsto * (1 - comissao / 100)
@@ -23,7 +23,7 @@ def calcular_martingale_com_comissao(odd_back, valor_inicial, qtd_apostas, comis
             'Lucro Previsto': round(lucro_liquido_previsto, 2)
         })
         
-        # Ajusta o valor da próxima aposta para cobrir todas as perdas e o valor inicial
+        # Calcula o valor da próxima aposta para cobrir todas as perdas e o valor inicial
         valor_aposta = (total_perda + valor_inicial) / (odd_back - 1)
 
     return apostas
@@ -31,10 +31,10 @@ def calcular_martingale_com_comissao(odd_back, valor_inicial, qtd_apostas, comis
 def main():
     st.title("Simulador de Recuperação de Perdas - Martingale")
 
-    odd_back = st.number_input("Odd Back", min_value=1.01, value=2.0)
-    valor_inicial = st.number_input("Valor Inicial da Aposta", min_value=1.0, value=1.0)
-    qtd_apostas = st.number_input("Quantidade de Apostas", min_value=1, value=3)
-    comissao = st.number_input("Comissão Exchange (%)", min_value=0.0, max_value=100.0, value=5.0)
+    odd_back = st.number_input("Odd Back", min_value=1.01, value=10.0)
+    valor_inicial = st.number_input("Valor Inicial da Aposta", min_value=0.01, value=1.5)
+    qtd_apostas = st.number_input("Quantidade de Apostas", min_value=1, value=12)
+    comissao = st.number_input("Comissão Exchange (%)", min_value=0.0, max_value=100.0, value=5.6)
 
     if st.button("Calcular"):
         apostas = calcular_martingale_com_comissao(odd_back, valor_inicial, qtd_apostas, comissao)
