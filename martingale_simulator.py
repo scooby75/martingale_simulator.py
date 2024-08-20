@@ -56,7 +56,7 @@ if not df_apostas.empty:
 
 # Exibir a tabela
 st.subheader("Tabela de Apostas")
-st.dataframe(df_apostas, use_container_width=True, hide_index=True)
+st.dataframe(df_apostas, use_container_width=True)
 
 # Exibir o valor final necessário na última aposta
 valor_final = df_apostas.iloc[-1]['Aposta Final'] if not df_apostas.empty else 0
