@@ -1,4 +1,5 @@
 import streamlit as st
+import pandas as pd
 
 def calcular_martingale_normal(odd_back, valor_inicial, qtd_apostas):
     apostas = []
@@ -31,12 +32,14 @@ def main():
 
     if st.button("Calcular"):
         apostas = calcular_martingale_normal(odd_back, valor_inicial, qtd_apostas)
+        df_apostas = pd.DataFrame(apostas)
         
         st.write("### Detalhamento das Apostas")
-        st.write("Aposta | Valor | Total de Perda | Lucro Previsto")
-        
-        for aposta in apostas:
-            st.write(f"{aposta['Aposta']} | R$ {aposta['Valor']} | R$ {aposta['Total de Perda']} | R$ {aposta['Lucro Previsto']}")
+        st.dataframe(df_apostas.style.format({
+            'Valor': 'R$ {:,.2f}',
+            'Total de Perda': 'R$ {:,.2f}',
+            'Lucro Previsto': 'R$ {:,.2f}'
+        }))
 
 if __name__ == "__main__":
     main()
