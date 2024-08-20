@@ -52,5 +52,5 @@ valor_final = df_apostas.iloc[-1]['Aposta Final']
 st.write(f"\nPara recuperar as perdas após {vezes_recuperar} apostas usando a estratégia Martingale,")
 st.write(f"você precisará apostar aproximadamente R$ {valor_final:.2f} na última aposta.")
 
-# Exibir o Red Acumulado
-st.write(f"\nRed Acumulado após {vezes_recuperar} apostas: R$ {red_acumulado:.2f}")
+# Exibir o Red Acumulado como negativo
+st.write(f"\nRed Acumulado após {vezes_recuperar} apostas: R$ -{red_acumulado:.2f}")
