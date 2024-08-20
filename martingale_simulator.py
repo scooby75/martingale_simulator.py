@@ -28,10 +28,10 @@ def calcular_recuperacao_martingale(valor_aposta, odd_back, vezes_recuperar, com
     ultima_aposta = apostas[-1]['Aposta Final']
     
     # Calcular o lucro líquido considerando a comissão da exchange
-    valor_total_return = ultima_aposta * odd_back
-    lucro_bruto = valor_total_return - ultima_aposta
-    valor_comissao = (valor_total_return - ultima_aposta) * (comissao / 100)
-    lucro_liquido = lucro_bruto - valor_comissao
+    valor_total_aposta = ultima_aposta
+    valor_total_return = valor_total_aposta * odd_back
+    lucro_bruto = valor_total_return - valor_total_aposta
+    lucro_liquido = lucro_bruto * (1 - comissao / 100)
     
     return apostas, perda_acumulada, lucro_liquido
 
