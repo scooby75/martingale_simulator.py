@@ -11,9 +11,7 @@ def calcular_martingale(chance, raise_percent, start_bank, valor_inicial, odd):
     cur_bet = valor_inicial
     bet_sum = 0
     n_bet = 1
-    odds = 0
-
-    payout = (100 / chance)
+    payout = 100 / chance
     min_loss = 100 / (payout - 1)
 
     while cur_bank >= cur_bet:
@@ -22,7 +20,7 @@ def calcular_martingale(chance, raise_percent, start_bank, valor_inicial, odd):
         
         if n_bet > 1:
             cur_bet *= (1 + raise_percent / 100)
-            odds = odds * (100 - chance) / 100
+            odds = odds * (100 - chance) / 100 if n_bet > 1 else (100 - chance)
         else:
             odds = 100 - chance
 
@@ -68,7 +66,9 @@ def main():
     if st.button("Calcular"):
         payouts = calcular_martingale(chance, raise_percent, start_bank, valor_inicial, odd)
         df_payouts = pd.DataFrame(payouts)
-        
+
+        # Corrigir a formatação para evitar problemas
+        df_payouts = df_payouts.fillna('-')  # Substituir valores NaN por '-'
         st.write("### Detalhamento das Apostas")
         st.dataframe(df_payouts.style.format({
             'Valor': 'R$ {:,.2f}',
@@ -79,9 +79,10 @@ def main():
             'Lucro': 'R$ {:,.2f}',
             '% Odds de Perda Contínua': '{:.2f}%'
         }))
-
-        total_perda = df_payouts['Total de Apostas'].apply(pd.to_numeric, errors='coerce').sum()
-        lucro_total = df_payouts['Lucro'].apply(pd.to_numeric, errors='coerce').sum()
+        
+        # Calcular e exibir total de perdas e lucro total
+        total_perda = df_payouts[df_payouts['Total de Apostas'] != '-']['Total de Apostas'].apply(pd.to_numeric, errors='coerce').sum()
+        lucro_total = df_payouts[df_payouts['Lucro'] != 'Banco Quebrado']['Lucro'].apply(pd.to_numeric, errors='coerce').sum()
         st.write(f"### Total de Perdas: R$ {total_perda:,.2f}")
         st.write(f"### Lucro Total: R$ {lucro_total:,.2f}")
 
