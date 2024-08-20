@@ -17,7 +17,7 @@ def calcular_recuperacao_martingale(valor_aposta, odd_back, vezes_recuperar, com
         apostas.append({
             'Rodada': i + 1,
             'Perda Acumulada': round(perda_acumulada, 2),
-            'Valor a Recuperar': round(valor_a_recuperar, 2),
+            'Possível Green': round(valor_a_recuperar, 2),
             'Aposta Final': round(aposta_final, 2)
         })
         
