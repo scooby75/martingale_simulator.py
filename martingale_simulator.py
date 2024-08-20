@@ -32,7 +32,7 @@ def calcular_martingale(banca_inicial, valor_aposta, odd_back, qnt_vezes, comiss
         banca_restante -= aposta_total
     
     # Calcula o lucro total obtido
-    lucro_total = lucro_liquido - perda_total + valor_aposta
+    lucro_total = lucro_liquido - (valor_aposta * (2**qnt_vezes - 1))
     
     return pd.DataFrame(dados), lucro_total, banca_restante >= 0
 
@@ -40,9 +40,9 @@ def calcular_martingale(banca_inicial, valor_aposta, odd_back, qnt_vezes, comiss
 st.title("Calculadora de Recuperação Martingale")
 
 banca_inicial = st.number_input("Banca Inicial (R$):", min_value=0.0, value=1000.0, step=0.1)
-valor_aposta = st.number_input("Valor da Aposta (R$):", min_value=0.0, value=50.0, step=0.1)
+valor_aposta = st.number_input("Valor da Aposta (R$):", min_value=0.0, value=10.0, step=0.1)
 odd_back = st.number_input("Odd Back:", min_value=1.01, value=2.0, step=0.1)
-qnt_vezes = st.number_input("Quantidade de Vezes para Recuperar:", min_value=1, value=3)
+qnt_vezes = st.number_input("Quantidade de Vezes para Recuperar:", min_value=1, value=5)
 comissao = st.number_input("Comissão da Exchange (%):", min_value=0.0, value=5.0, step=0.1)
 
 if st.button("Calcular"):
