@@ -19,10 +19,10 @@ def calcular_martingale(banca_inicial, valor_aposta, odd_back, qnt_vezes, comiss
         
         dados.append({
             "Rodada": i,
-            "Valor Apostado (R$)": aposta_total,
-            "Perda Acumulada (R$)": perda_total,
-            "Valor da Próxima Entrada (R$)": valor_atual_aposta,
-            "Lucro Líquido (R$)": lucro_liquido
+            "Valor Apostado (R$)": f"{aposta_total:.2f}",
+            "Perda Acumulada (R$)": f"{perda_total:.2f}",
+            "Valor da Próxima Entrada (R$)": f"{valor_atual_aposta:.2f}",
+            "Lucro Líquido (R$)": f"{lucro_liquido:.2f}"
         })
         
         banca_restante -= aposta_total
@@ -55,4 +55,3 @@ if st.button("Calcular"):
         st.success("A banca inicial é suficiente para cobrir as apostas.")
     else:
         st.error("A banca inicial não é suficiente para cobrir as apostas.")
-
