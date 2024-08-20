@@ -24,9 +24,11 @@ def calcular_recuperacao_martingale(valor_aposta, odd_back, vezes_recuperar, com
         # Atualiza a perda acumulada para a próxima rodada
         perda_acumulada += aposta_final
     
-    # Cálculo do lucro após descontar a comissão
-    lucro_bruto = lucro_desejado
-    lucro_liquido = lucro_bruto * (1 - comissao / 100)
+    # Obter o valor da última aposta
+    ultima_aposta = apostas[-1]['Aposta Final']
+    
+    # Calcular o lucro líquido considerando a comissão da exchange
+    lucro_liquido = ultima_aposta * (1 - comissao / 100)
     
     return apostas, perda_acumulada, lucro_liquido
 
