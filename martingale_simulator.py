@@ -8,16 +8,18 @@ def calcular_recuperacao_martingale(valor_aposta, odd_back, vezes_recuperar, com
 
     for i in range(vezes_recuperar):
         # Calcula o valor necessário para cobrir a perda acumulada e obter lucro
-        aposta_ajustada = (perda_acumulada + valor_aposta) / (odd_back - 1)
+        valor_a_recuperar = perda_acumulada + valor_aposta
+        aposta_necessaria = valor_a_recuperar / (odd_back - 1)
         
         # Considera a comissão da exchange
-        aposta_final = aposta_ajustada / (1 - comissao / 100)
+        aposta_final = aposta_necessaria / (1 - comissao / 100)
         
         # Adiciona a aposta à lista
         apostas.append({
             'Rodada': i + 1,
             'Perda Acumulada': round(perda_acumulada, 2),
-            'Aposta Ajustada': round(aposta_ajustada, 2),
+            'Valor a Recuperar': round(valor_a_recuperar, 2),
+            'Aposta Necessária (sem comissão)': round(aposta_necessaria, 2),
             'Aposta Final (com comissão)': round(aposta_final, 2)
         })
         
@@ -27,7 +29,7 @@ def calcular_recuperacao_martingale(valor_aposta, odd_back, vezes_recuperar, com
     return apostas
 
 # Interface Streamlit
-st.title("Calculadora Martingale")
+st.title("Calculadora de Recuperação Martingale")
 
 # Inputs
 valor_aposta = st.number_input("Valor da Aposta (R$):", value=1.00, format="%.2f")
