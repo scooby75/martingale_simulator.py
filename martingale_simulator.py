@@ -9,17 +9,18 @@ def calcular_martingale(banca_inicial, valor_aposta, odd_back, qnt_vezes, comiss
     valor_atual_aposta = valor_aposta
     perda_total = 0
     banca_restante = banca_inicial
+    lucro_desejado = valor_aposta * (odd_back - 1) * (1 - comissao / 100)
     
     for i in range(1, qnt_vezes + 1):
         if i > 1:
-            valor_atual_aposta = (perda_total / (odd_back - 1)) + valor_aposta
+            valor_atual_aposta = (perda_total + lucro_desejado) / (odd_back - 1)
         
         aposta_total = valor_atual_aposta
         lucro_bruto = (odd_back - 1) * valor_atual_aposta
         lucro_liquido = lucro_bruto * (1 - comissao / 100)
         perda_total += aposta_total
         
-        proxima_entrada = f"{(perda_total / (odd_back - 1) + valor_aposta):.2f}" if i < qnt_vezes else "-"
+        proxima_entrada = f"{(perda_total + lucro_desejado):.2f}" if i < qnt_vezes else "-"
         
         dados.append({
             "Rodada": i,
