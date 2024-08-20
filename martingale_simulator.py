@@ -12,10 +12,9 @@ def calcular_martingale(banca_inicial, valor_aposta, odd_back, qnt_vezes, comiss
             valor_atual_aposta = perda_total / (odd_back - 1) + valor_aposta
         
         aposta_total = valor_atual_aposta
-        perda_total += aposta_total
-        
         lucro_bruto = (odd_back - 1) * valor_aposta
         lucro_liquido = lucro_bruto * (1 - comissao / 100)
+        perda_total += aposta_total
         
         dados.append({
             "Rodada": i,
@@ -28,7 +27,7 @@ def calcular_martingale(banca_inicial, valor_aposta, odd_back, qnt_vezes, comiss
         banca_restante -= aposta_total
     
     # Calcula o lucro total obtido
-    lucro_total = lucro_liquido - (valor_aposta * (2**qnt_vezes - 1))
+    lucro_total = lucro_liquido - (perda_total - valor_aposta)
     
     return pd.DataFrame(dados), lucro_total, banca_restante >= 0
 
